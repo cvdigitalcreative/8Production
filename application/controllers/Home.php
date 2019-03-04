@@ -17,6 +17,13 @@
 			$this->load->view('user/v_home.php');
 			$this->load->view('user/v_footer.php');
 		}
+
+		public function video(){
+			$y['title'] = 'Video ';
+			$this->load->view('user/v_header.php',$y);
+			$this->load->view('user/v_video.php');
+			$this->load->view('user/v_footer.php');
+		}
 	}
 	
 ?>

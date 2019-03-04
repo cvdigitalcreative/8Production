@@ -66,19 +66,16 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-xs-2">
-							<div id="colorlib-logo"><a href="index.html"><img src="<?php echo base_url()?>assets/images/logo.png"></a></div>
+							<div id="colorlib-logo"><a href="<?php echo base_url()?>"><img src="<?php echo base_url()?>assets/images/logo.png"></a></div>
 						</div>
 						<div class="col-xs-10 text-right menu-1" style="padding: 17px;">
 							<ul>
-								<li class="active"><a href="index.html">Home</a></li>
+								<li> <a href="<?php echo base_url()?>">Home</a></li>
+								<li ><a href="<?php echo base_url()?>Home/Video">Video</a></li>
 								<li class="has-dropdown">
 									<a href="shop.html">Paket</a>
 									<ul class="dropdown">
-										<li><a href="product-detail.html">Product Detail</a></li>
-										<li><a href="cart.html">Shipping Cart</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="order-complete.html">Order Complete</a></li>
-										<li><a href="add-to-wishlist.html">Wishlist</a></li>
+										
 									</ul>
 								</li>
 								<!-- <li><a href="about.html">About</a></li> -->
