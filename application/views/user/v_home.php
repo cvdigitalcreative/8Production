@@ -179,7 +179,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
-						<h2><span>Produk Kami</span></h2>
+						<h2><span>Paket Kami</span></h2>
 						<p></p>
 					</div>
 				</div>
