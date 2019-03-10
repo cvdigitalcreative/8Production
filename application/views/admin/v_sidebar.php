@@ -28,7 +28,7 @@
           </a>
           <ul id="website" class="collapse" data-parent="#sidebarnav">
             <li> <a href="<?php echo base_url()?>Admin/Paket/Kategori">Kategori Paket</a> </li>
-            <li> <a href="<?php echo base_url()?>Admin/Data_User/QC">Tambah Paket</a> </li>
+            <li> <a href="<?php echo base_url()?>Admin/Paket">Tambah Paket</a> </li>
 
           </ul>
         </li>

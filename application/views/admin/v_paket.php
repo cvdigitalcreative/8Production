@@ -7,7 +7,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
               <li class="breadcrumb-item"><a href="#" class="default-color">Home</a></li>
-              <li class="breadcrumb-item active">Kategori Paket</li>
+              <li class="breadcrumb-item active">Daftar Paket</li>
             </ol>
           </div>
         </div>
@@ -26,20 +26,28 @@
             <table id="datatable" class="table table-striped table-bordered p-0">
               <thead>
                   <tr>
-                    <th>Kategori Nama</th>
+                    <th>Nama paket</th>
+                    <th>Harga paket</th>
+                    <th>Kategori</th>
                     <th>Aksi</th>
                   </tr>
               </thead>
               <tbody>
-                  <?php foreach($Kategori->result_array() AS $row) :
-                    $id = $row['kp_id'];
-                    $nama = $row['kp_nama']
+                  <?php foreach($paket->result_array() as $row) :
+                    $id = $row['paket_id'];
+                    $nama = $row['paket_nama'];
+                    $tanggal = $row['paket_tanggal'];
+                    $harga = $row['paket_harga'];
+                    $deskripsi = $row['paket_keterangan'];
+                    $kategori_paket = $row['kp_nama'];
                   ?>
                   <tr>
                       <td><?php echo $nama?></td>
+                      <td><?php echo $harga?></td>
+                      <td><?php echo $kategori_paket?></td>
                       <td>
-                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#EditData<?php echo $id?>"><span class="ti-pencil"></span></a>
-                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#HapusData<?php echo $id?>"><span class="ti-trash"></span></a>
+                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#EditData"><span class="ti-pencil"></span></a>
+                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#HapusData"><span class="ti-trash"></span></a>
                       </td>
                   </tr>
                 <?php endforeach;?>
@@ -52,18 +60,41 @@
 
       <!-- Modal Add Data -->
         <div class="modal" tabindex="-1" role="dialog" id="tambah-data">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Data</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
-                    <form action="<?php echo base_url()?>Admin/Paket/save_kategori" method="post" enctype="multipart/form-data">
+                    <form action="<?php echo base_url()?>Admin/Paket/save_paket" method="post" enctype="multipart/form-data">
                       <div class="modal-body p-20">
                               <div class="row">
                                   <div class="col-md-12">
-                                      <label class="control-label">Nama kategori*</label>
-                                      <input class="form-control form-white" placeholder="Masukkan nama kategori" type="text" name="kategori" required/>
+                                      <label class="control-label">Nama paket*</label>
+                                      <input class="form-control form-white" placeholder="Nama paket" type="text" name="nama_paket" required/>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <label class="control-label">Harga Paket*</label>
+                                      <input class="form-control form-white" placeholder="Harga paket" type="text" name="harga_paket" value="Rp. " required/>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <label class="control-label">Kategori</label>
+                                      <select class="form-control" name="kategori">
+                                          <option selected value="">Pilih</option>
+                                           <?php
+                                              $no=0;
+                                              foreach ($kategori->result_array() as $row) :
+                                                $no++;
+                                                $id_kategori = $row['kp_id'];
+                                                $nama_kategori = $row['kp_nama'];
+                                                ?>
+                                              <option value="<?php echo $id_kategori;?>"><?php echo $nama_kategori;?></option>
+                                            <?php endforeach;?>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <label class="control-label">Deskripsi</label>
+                                      <textarea id="summernote" name="deskripsi_paket" required><p>Deskripsi Paket</p></textarea>
                                   </div>
                               </div>
                       </div>
@@ -76,9 +107,13 @@
             </div>
         </div>
 
-        <?php foreach($Kategori->result_array() AS $row) :
-          $id = $row['kp_id'];
-          $nama = $row['kp_nama']
+        <?php foreach($paket->result_array() AS $row) :
+          $id = $row['paket_id'];
+          $nama = $row['paket_nama'];
+          $tanggal = $row['paket_tanggal'];
+          $harga = $row['paket_harga'];
+          $deskripsi = $row['paket_keterangan'];
+          $kategori_paket = $row['kp_nama'];
         ?>
         <div class="modal" tabindex="-1" role="dialog" id="EditData<?php echo $id?>">
             <div class="modal-dialog">
@@ -108,9 +143,13 @@
         <?php endforeach;?>
 
         <!--Modal Delete Data -->
-        <?php foreach($Kategori->result_array() AS $row) :
-          $id = $row['kp_id'];
-          $nama = $row['kp_nama']
+        <?php foreach($paket->result_array() AS $row) :
+          $id = $row['paket_id'];
+          $nama = $row['paket_nama'];
+          $tanggal = $row['paket_tanggal'];
+          $harga = $row['paket_harga'];
+          $deskripsi = $row['paket_keterangan'];
+          $kategori_paket = $row['kp_nama'];
         ?>
         <div class="modal" tabindex="-1" role="dialog" id="HapusData<?php echo $id?>">
             <div class="modal-dialog">
@@ -123,7 +162,7 @@
                         <div class="modal-body p-20">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="hidden" name="id" value="<?php echo $id;?>">
+                                    <input type="hidden" name="id" value="<?php echo $id?>">
                                     <p>Apakah kamu yakin ingin menghapus kategori paket <b><i><?php echo $nama?></i></b></p>
                                 </div>
                             </div>
