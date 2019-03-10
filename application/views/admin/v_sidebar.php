@@ -27,8 +27,7 @@
             <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
           </a>
           <ul id="website" class="collapse" data-parent="#sidebarnav">
-            <li> <a href="<?php echo base_url()?>Admin/Data_User">Update Informasi</a> </li>
-            <li> <a href="<?php echo base_url()?>Admin/Data_User/QC">Kategori Paket</a> </li>
+            <li> <a href="<?php echo base_url()?>Admin/Paket/Kategori">Kategori Paket</a> </li>
             <li> <a href="<?php echo base_url()?>Admin/Data_User/QC">Tambah Paket</a> </li>
 
           </ul>
@@ -36,8 +35,8 @@
         <li>
           <a href="<?php echo base_url()?>Admin/Pengguna"><i class="ti-user"></i><span class="right-nav-text">Agenda</span> </a>
         </li>
-      
+
     </ul>
-  </div> 
+  </div>
 </div>
 <!-- Left Sidebar End-->
