@@ -233,6 +233,10 @@ POTENZA.datatables = function () {
     }
  };
 
+ $(document).ready(function() {
+    $('table.display').DataTable();
+  } );
+
 /*********************************
     Wow animation on scroll
 *********************************/

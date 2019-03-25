@@ -7,7 +7,7 @@ class M_login extends CI_Model
     }
 
     function cekpegawai($username,$password){
-        $hasil=$this->db->query("SELECT * FROM pegawai WHERE pegawai_username='$username' AND pegawai_username='$password' ");
+        $hasil=$this->db->query("SELECT * FROM pegawai WHERE pegawai_username='$username' AND pegawai_password='$password' ");
         return $hasil;
     }
 

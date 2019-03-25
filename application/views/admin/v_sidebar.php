@@ -17,8 +17,8 @@
             <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
           </a>
           <ul id="pegawai" class="collapse" data-parent="#sidebarnav">
-            <li> <a href="<?php echo base_url()?>Admin/Data_User">Data Pegawai</a> </li>
-            <li> <a href="<?php echo base_url()?>Admin/Data_User/QC">Absensi Pegawai</a> </li>
+            <li> <a href="<?php echo base_url()?>Admin/Pegawai">Data Pegawai</a> </li>
+            <li> <a href="<?php echo base_url()?>Admin/Pegawai/absensi_pegawai">Absensi Pegawai</a> </li>
           </ul>
         </li>
        <li>
@@ -33,7 +33,7 @@
           </ul>
         </li>
         <li>
-          <a href="<?php echo base_url()?>Admin/Pengguna"><i class="ti-user"></i><span class="right-nav-text">Agenda</span> </a>
+          <a href="<?php echo base_url()?>Admin/Agenda"><i class="ti-user"></i><span class="right-nav-text">Agenda</span> </a>
         </li>
 
     </ul>

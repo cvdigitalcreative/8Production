@@ -23,6 +23,8 @@ class Login extends CI_Controller{
                 $this->session->set_userdata('akses','1');
                 $id=$xcadmin['user_id'];
                 $user_nama=$xcadmin['user_nama'];
+                $email = $xcadmin['user_email'];
+                $this->session->set_userdata('email',$email);
                 $this->session->set_userdata('id',$id);
                 $this->session->set_userdata('nama',$user_nama);
                 redirect('Admin/Pemesanan');
@@ -32,6 +34,8 @@ class Login extends CI_Controller{
                 $this->session->set_userdata('akses','2');
                 $id=$xcadmin['user_id'];
                 $user_nama=$xcadmin['user_nama'];
+                $email = $xcadmin['user_email'];
+                $this->session->set_userdata('email',$email);
                 $this->session->set_userdata('id',$id);
                 $this->session->set_userdata('nama',$user_nama);
                 redirect('Admin/Pemesanan');

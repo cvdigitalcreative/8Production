@@ -7,7 +7,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
               <li class="breadcrumb-item"><a href="#" class="default-color">Home</a></li>
-              <li class="breadcrumb-item active">Data Master </li>
+              <li class="breadcrumb-item active">Pemesanan </li>
             </ol>
           </div>
         </div>
@@ -17,41 +17,62 @@
       <div class="col-xl-12 mb-30">     
         <div class="card card-statistics h-100"> 
           <div class="card-body">
-            <div class="col-xl-12 mb-10">
-                  <a href="" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary btn-block ripple m-t-20">
-                      <i class="fa fa-plus pr-2"></i> Tambah Data
-                  </a>
-            </div>
             <div class="table-responsive">
             <table id="datatable" class="table table-striped table-bordered p-0">
               <thead>
                   <tr>
-                    <th>Foto</th>
-                    <th>Nama Lengkap</th>
-                    <th>Nomor HP</th>
-                    <th>Alamat</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Aksi</th>
+                    <th width="50">Nama Pemesanan</th>
+                    <th>Nama Paket</th>
+                    <th width="50">Nomor HP</th>
+                    <th>Email</th>
+                    <th>Tanggal Awal</th>
+                    <th>Tanggal Akhir</th>
+                    <th>Transaksi</th>
+                    <th>Konfirmasi</th>
+                    <th><center>  Aksi</th>
                   </tr>
               </thead>
               <tbody>
-                  
-                  <tr>
-                    
-                      <td><img width="60" height="60" src="<?php echo base_url().'assets/admin/images/a.jpg'?>"></td>
-                    
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#EditData"><span class="ti-pencil"></span></a>
-                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#HapusData"><span class="ti-trash"></span></a>
-                      </td>
-                  </tr>
-                
+                  <?php 
+                    $no = 0;
+                    foreach($pemesanan->result_array() as $row) :
+                    $no++;
+                    $pemesanan_id = $row['pemesanan_id'];
+                    $pemesanan_nama = $row['pemesanan_nama'];
+                    $pemesanan_nohp = $row['pemesanan_nohp'];
+                    $pemesanan_email = $row['pemesanan_email'];
+                    $pemesanan_alamat = $row['pemesanan_alamat'];
+                    $pemesanan_status = $row['pemesanan_status'];
+                    $s_videografer = $row['s_videografer'];
+                    $s_fotografer = $row['s_fotografer'];
+                    $s_pilot_drone = $row['s_pilot_drone'];
+                    $s_backup_data = $row['s_backup_data'];
+                    $s_koordinator_tim = $row['s_koordinator_tim'];
+                    $s_editing = $row['s_editing'];
+                    $tglawal = $row['tglawal'];
+                    $tglakhir = $row['tglakhir'];
+                    $paket_id = $row['paket_id'];
+                    $paket_nama = $row['paket_nama'];
+                  ?>
+                    <tr>         
+                        <td><?php echo $pemesanan_nama?></td>
+                        <td><?php echo $paket_nama?></td>
+                        <td><?php echo $pemesanan_nohp?></td>
+                        <td><?php echo $pemesanan_email?></td>
+                        <td><?php echo $tglawal?></td>
+                        <td><?php echo $tglakhir?></td>
+                        <td><a href="<?php echo base_url()?>Admin/Pemesanan/transaksi/<?php echo $pemesanan_id?>"><button class="btn btn-primary">Transaksi</button></a></td>
+                        <?php if($pemesanan_status == 0) : ?>
+                          <td><a href="#" data-toggle="modal" data-target="#konfirmasi<?php echo $pemesanan_id?>"><button class="btn btn-success">Konfirmasi</button></a></td>
+                        <?php elseif($pemesanan_status == 1) :?>
+                          <td><a href="#" data-toggle="modal" data-target="#pegawai<?php echo $pemesanan_id?>"><button class="btn btn-primary">Pilih Pegawai</button></a></td>
+                        <?php endif;?>
+                        <td>
+                          <a href="#" style="margin-right: 10px" data-toggle="modal" data-target="#EditData<?php echo $pemesanan_id?>"><span class="ti-pencil"></span></a>
+                          <a href="#" style="margin-right: 10px" data-toggle="modal" data-target="#HapusData<?php echo $pemesanan_id?>"><span class="ti-trash"></span></a>
+                        </td>
+                    </tr>
+                  <?php endforeach;?>
               </tbody>
            </table>
           </div>
@@ -59,125 +80,268 @@
         </div>   
       </div>
 
-      <!-- Modal Add Data -->
-        <div class="modal" tabindex="-1" role="dialog" id="tambah-data">
-            <div class="modal-dialog">
+      <?php 
+        $no = 0;
+        foreach($pemesanan->result_array() as $row) :
+          $no++;
+          $pemesanan_id = $row['pemesanan_id'];
+          $s_videografer = $row['s_videografer'];
+          $s_fotografer = $row['s_fotografer'];
+          $s_pilot_drone = $row['s_pilot_drone'];
+          $s_backup_data = $row['s_backup_data'];
+          $s_koordinator_tim = $row['s_koordinator_tim'];
+          $s_editing = $row['s_editing'];
+        ?>
+        <div class="modal" tabindex="-1" role="dialog" id="pegawai<?php echo $pemesanan_id?>">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah Data</h5>
+                        <h5 class="modal-title">Pilih Pegawai<?php echo $s_fotografer?></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
-                    <form action="<?php echo base_url()?>Admin/Data_User/addQC" method="post" enctype="multipart/form-data">
-                      <div class="modal-body p-20">
+                        <form action="<?php echo base_url()?>Admin/Pemesanan/pilih_pegawai" method="post" enctype="multipart/form-data">
+                          <div class="modal-body p-20">
                               <div class="row">
-                                  <div class="col-md-12">
-                                      <label class="control-label">Nama Lengkap</label>
-                                      <input class="form-control form-white" placeholder="Masukkan Nama Lengkap" type="text" name="xnama" required/>
+                                  <div class="col-md-4">
+                                      <div class="col-md-12">
+                                        <label class="control-label">Videografer</label>
+                                        <input type="hidden" name="id" value="<?php echo $pemesanan_id?>">
+                                        <select class="form-control" name="videografer">
+                                            <option value="">Pilih</option>
+                                              <?php foreach ($videografer->result_array() as $row) {
+                                                $pegawai_id = $row['pegawai_id'];
+                                                $pegawai_nama = $row['pegawai_nama'];
+                                                if($s_videografer==$pegawai_id)
+                                                  echo "<option value='$pegawai_id' selected disabled>$pegawai_nama</option>";
+                                                else
+                                                  echo "<option value='$pegawai_id'>$pegawai_nama</option>";
+                                              }?>
+                                        </select>
+                                      </div>
+                                    <div class="col-md-12">
+                                      <label class="control-label">Fotografer</label>
+                                      <select class="form-control" name="fotografer">
+                                            <option selected value="">Pilih</option>
+                                              <?php foreach ($fotografer->result_array() as $row) {
+                                                $pegawai_id = $row['pegawai_id'];
+                                                $pegawai_nama = $row['pegawai_nama'];
+                                                if($s_fotografer==$pegawai_id)
+                                                  echo "<option value='$pegawai_id' selected disabled>$pegawai_nama</option>";
+                                                else
+                                                  echo "<option value='$pegawai_id'>$pegawai_nama</option>";
+                                              }?>
+                                      </select>
+                                    </div>
                                   </div>
-                                  <div class="col-md-12">
-                                      <label class="control-label">Nomor Hp</label>
-                                      <input class="form-control form-white" placeholder="Masukkan nomor hp" type="number" name="xhp" required/>
+                                  <div class="col-md-4">
+                                    <div class="col-md-12">
+                                      <label class="control-label">Pilot Drone</label>
+                                      <select class="form-control" name="pilot_drone">
+                                          <option selected value="">Pilih</option>
+                                           <?php foreach ($pilot_drone->result_array() as $row) {
+                                                $pegawai_id = $row['pegawai_id'];
+                                                $pegawai_nama = $row['pegawai_nama'];
+                                                if($s_pilot_drone==$pegawai_id)
+                                                  echo "<option value='$pegawai_id' selected disabled>$pegawai_nama</option>";
+                                                else
+                                                  echo "<option value='$pegawai_id'>$pegawai_nama</option>";
+                                              }?>
+                                      </select>
+                                    </div>
+                                     <div class="col-md-12">
+                                      <label class="control-label">Backup Data</label>
+                                      <select class="form-control" name="backup_data">
+                                          <option selected value="">Pilih</option>
+                                           <?php foreach ($backup_data->result_array() as $row) {
+                                                $pegawai_id = $row['pegawai_id'];
+                                                $pegawai_nama = $row['pegawai_nama'];
+                                                if($s_backup_data==$pegawai_id)
+                                                  echo "<option value='$pegawai_id' selected disabled>$pegawai_nama</option>";
+                                                else
+                                                  echo "<option value='$pegawai_id'>$pegawai_nama</option>";
+                                              }?>
+                                      </select>
+                                    </div>
                                   </div>
-                                  <div class="col-md-12">
-                                      <label class="control-label">Alamat Rumah</label>
-                                      <textarea rows="4" class="form-control form-white" name="xalamat"></textarea>
+                                  <div class="col-md-4">
+                                     <div class="col-md-12">
+                                      <label class="control-label">Koordiantor Tim</label>
+                                      <select class="form-control" name="koordinator_tim">
+                                          <option selected value="">Pilih</option>
+                                           <?php foreach ($koordinator_tim->result_array() as $row) {
+                                                $pegawai_id = $row['pegawai_id'];
+                                                $pegawai_nama = $row['pegawai_nama'];
+                                                if($s_koordinator_tim==$pegawai_id)
+                                                  echo "<option value='$pegawai_id' selected disabled>$pegawai_nama</option>";
+                                                else
+                                                  echo "<option value='$pegawai_id'>$pegawai_nama</option>";
+                                              }?>
+                                      </select>
+                                    </div>
+                                     <div class="col-md-12">
+                                      <label class="control-label">Editing</label>
+                                      <select class="form-control" name="editing">
+                                          <option selected value="">Pilih</option>
+                                            <?php foreach ($editing->result_array() as $row) {
+                                                $pegawai_id = $row['pegawai_id'];
+                                                $pegawai_nama = $row['pegawai_nama'];
+                                                if($s_editing==$pegawai_id)
+                                                  echo "<option value='$pegawai_id' selected disabled>$pegawai_nama</option>";
+                                                else
+                                                  echo "<option value='$pegawai_id'>$pegawai_nama</option>";
+                                              }?>
+                                      </select>
+                                    </div>
                                   </div>
-                                  <div class="col-md-12">
-                                      <label class="control-label">Username</label>
-                                      <input class="form-control form-white" placeholder="Masukkan Username" type="text" name="xusername" required/>
-                                  </div>
-                                  <div class="col-md-12">
-                                      <label class="control-label">Password</label>
-                                      <input class="form-control form-white" placeholder="Masukkan Password" type="text" name="xpassword" required/>
-                                  </div>
-                                  <div class="col-md-12">
-                                    <label class="control-label">Photo</label>
-                                    <input style="padding-left: 1px" class="form-control" type="file" name="filefoto" required/>
-                                  </div>
+                                  
                               </div>          
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-success ripple save-category" id="simpan">Save</button>
-                      </div>
-                    </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-success ripple save-category" id="simpan">Simpan</button>
+                          </div>
+                        </form>             
                 </div>
             </div>
-        </div>  
+        </div>
+        <?php endforeach;?>
 
-        <div class="modal" tabindex="-1" role="dialog" id="EditData">
+      <?php 
+        $no = 0;
+        foreach($pemesanan->result_array() as $row) :
+          $no++;
+          $pemesanan_id = $row['pemesanan_id'];
+          $pemesanan_nama = $row['pemesanan_nama'];
+          $pemesanan_nohp = $row['pemesanan_nohp'];
+          $pemesanan_email = $row['pemesanan_email'];
+          $pemesanan_alamat = $row['pemesanan_alamat'];
+          $tglawal = $row['tglawal'];
+          $tglakhir = $row['tglakhir'];
+          $paket_id = $row['paket_id'];
+          $paket_nama = $row['paket_nama'];
+        ?>
+        <div class="modal" tabindex="-1" role="dialog" id="EditData<?php echo $pemesanan_id?>">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Data</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
-                        <form action="<?php echo base_url()?>Admin/Data_User/editQC" method="post" enctype="multipart/form-data">
+                        <form action="<?php echo base_url()?>Admin/Pemesanan/update_pemesanan" method="post" enctype="multipart/form-data">
                           <div class="modal-body p-20">
                               <div class="row">
                                   <div class="col-md-12">
-                                      <label class="control-label">Nama Lengkap</label>
-                                      <input type="hidden" name="kode" value="">
-                                      <input type="hidden" name="foto" value="">
-                                      <input class="form-control form-white" placeholder="Masukkan Nama Lengkap" type="text" name="xnama" value="" required/>
+                                      <label class="control-label">Nama Pemesan</label>
+                                      <input type="hidden" name="kode" value="<?php echo $pemesanan_id?>">
+                                      <input class="form-control form-white" placeholder="Nama Lengkap" type="text" name="nama" value="<?php echo $pemesanan_nama?>" required/>
                                   </div>
                                   <div class="col-md-12">
-                                      <label class="control-label">Nomor Hp</label>
-                                      <input class="form-control form-white" placeholder="Masukkan nomor hp" type="number" name="xhp" value="" required/>
+                                      <label class="control-label">Nomor hp pemesan</label>
+                                      <input class="form-control form-white" placeholder="Masukkan nomor hp" type="text" name="nohp" value="<?php echo $pemesanan_nohp?>" required/>
                                   </div>
                                   <div class="col-md-12">
-                                      <label class="control-label">Alamat Rumah</label>
-                                      <textarea rows="4" class="form-control form-white" name="xalamat"></textarea>
+                                      <label class="control-label">Email pemesan</label>
+                                      <input class="form-control form-white" placeholder="Email Kamu" type="email" name="emailpemesanan" value="<?php echo $pemesanan_email?>" required/>
                                   </div>
                                   <div class="col-md-12">
-                                      <label class="control-label">Username</label>
-                                      <input class="form-control form-white" placeholder="Masukkan Username" type="text" name="xusername" value="" required/>
+                                      <label class="control-label">Alamat pemesan</label>
+                                      <textarea rows="4" class="form-control form-white" name="alamat"><?php echo $pemesanan_alamat?></textarea>
                                   </div>
-                                  <div class="col-md-12">
-                                      <label class="control-label">Password</label>
-                                      <input class="form-control form-white" placeholder="Masukkan Password" type="text" name="xpassword" value="" required/>
+                                  <div class="col-md-6">
+                                      <label class="control-label">Tanggal Awal</label>
+                                      <input class="form-control form-white" placeholder="Tanggal Awal" type="date" name="tglawal" value="<?php echo $tglawal?>" required/>
                                   </div>
-                                  <div class="col-md-12">
-                                    <label class="control-label">Photo</label>
-                                    <input style="padding-left: 1px" class="form-control" type="file" name="filefoto"/>
+                                  <div class="col-md-6">
+                                      <label class="control-label">Tanggal Akhir</label>
+                                      <input class="form-control form-white" placeholder="Tanggal Akhir" type="date" name="tglakhir" value="<?php echo $tglakhir?>" required/>
                                   </div>
                               </div>          
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success ripple save-category" id="simpan">Save</button>
+                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-success ripple save-category" id="simpan">Konfirmasi</button>
                           </div>
                         </form>             
                 </div>
             </div>
         </div>
+        <?php endforeach;?>
 
+        <?php 
+        $no = 0;
+        foreach($pemesanan->result_array() as $row) :
+          $no++;
+          $pemesanan_id = $row['pemesanan_id'];
+          $pemesanan_nama = $row['pemesanan_nama'];
+          $pemesanan_nohp = $row['pemesanan_nohp'];
+          $pemesanan_email = $row['pemesanan_email'];
+          $pemesanan_alamat = $row['pemesanan_alamat'];
+          $tglawal = $row['tglawal'];
+          $tglakhir = $row['tglakhir'];
+          $paket_id = $row['paket_id'];
+          $paket_nama = $row['paket_nama'];
+        ?>
         <!--Modal Delete Data -->
-        <div class="modal" tabindex="-1" role="dialog" id="HapusData">
+        <div class="modal" tabindex="-1" role="dialog" id="HapusData<?php echo $pemesanan_id?>">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Hapus Data</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
-                    <form action="<?php echo base_url()?>Admin/Data_User/hapusQC" method="post" enctype="multipart/form-data">
+                    <form action="<?php echo base_url()?>Admin/Pemesanan/hapus_pemesanan" method="post" enctype="multipart/form-data">
                         <div class="modal-body p-20">                     
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="hidden" name="kode" value="">
-                                    <input type="hidden" name="gambar" value="">
-                                    <p>Apakah kamu yakin ingin menghapus surbeyor <b><i></i></b></p>
+                                    <input type="hidden" name="kode" value="<?php echo $pemesanan_id?>">
+                                    <p>Apakah kamu yakin ingin menghapus pemesanan <b><i><?php echo $paket_nama?></i></b> atas nama <b><i><?php echo $pemesanan_nama?></i></b> ?</p>
                                 </div>
                             </div>                  
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success ripple save-category">Save</button>
+                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-success ripple save-category">Simpan</button>
                         </div>
                     </form>
                 </div>
             </div>
-        </div> 
+        </div>
+        <?php endforeach;?> 
+
+         <?php 
+        $no = 0;
+        foreach($pemesanan->result_array() as $row) :
+          $no++;
+          $pemesanan_id = $row['pemesanan_id'];
+          $pemesanan_nama = $row['pemesanan_nama'];
+          $paket_nama = $row['paket_nama'];
+        ?>
+        <!--Modal Delete Data -->
+        <div class="modal" tabindex="-1" role="dialog" id="konfirmasi<?php echo $pemesanan_id?>">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hapus Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="<?php echo base_url()?>Admin/Pemesanan/Konfirmasi" method="post" enctype="multipart/form-data">
+                        <div class="modal-body p-20">                     
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" name="kode" value="<?php echo $pemesanan_id?>">
+                                    <p>Apakah kamu yakin ingin konfirmasi pemesanan <b><i><?php echo $paket_nama?></i></b> atas nama <b><i><?php echo $pemesanan_nama?></i></b>?</p>
+                                </div>
+                            </div>                  
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-success ripple save-category">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <?php endforeach;?> 
   </div>
 
     
@@ -255,56 +419,48 @@
 </body>
 </html> 
 <script src="<?php echo base_url().'assets/admin/js/jquery.toast.min.js'?>"></script>
-
-<?php if($this->session->flashdata('msg')=='error'):?>
+<?php if($this->session->flashdata('msg')=='info'):?>
         <script type="text/javascript">
                 $.toast({
-                    heading: 'Error',
-                    text: "Password dan Ulangi Password yang Anda masukan tidak sama.",
+                    heading: 'Info',
+                    text: "Status Pemesanan Telah dikonfirmasi",
                     showHideTransition: 'slide',
-                    icon: 'error',
-                    hideAfter: false,
-                    position: 'bottom-right',
-                    bgColor: '#FF4859'
+                    icon: 'Warning',
+                    loader: true,        // Change it to false to disable loader
+                    loaderBg: '#ffffff',
+                    position: 'top-right',
+                    bgColor: 'blue'
                 });
         </script>
     
     <?php elseif($this->session->flashdata('msg')=='success'):?>
         <script type="text/javascript">
                 $.toast({
-                    heading: 'Success',
+                    heading: 'Sukses',
                     text: "Data Berhasil disimpan ke database.",
                     showHideTransition: 'slide',
                     icon: 'success',
-                    hideAfter: false,
+                    loader: true,        // Change it to false to disable loader
+                    loaderBg: '#ffffff',
                     position: 'top-right',
                     bgColor: '#7EC857'
                 });
         </script>
-    <?php elseif($this->session->flashdata('msg')=='info'):?>
+
+      <?php elseif($this->session->flashdata('msg')=='hapus'):?>
         <script type="text/javascript">
                 $.toast({
-                    heading: 'Info',
-                    text: "Data berhasil di update",
+                    heading: 'Warning',
+                    text: "Data Berhasil dihapus dari database.",
                     showHideTransition: 'slide',
-                    icon: 'info',
-                    hideAfter: false,
+                    icon: 'Warning',
+                    loader: true,        // Change it to false to disable loader
+                    loaderBg: '#ffffff',
                     position: 'top-right',
-                    bgColor: '#00C9E6'
+                    bgColor: 'red'
                 });
         </script>
-    <?php elseif($this->session->flashdata('msg')=='success-hapus'):?>
-        <script type="text/javascript">
-                $.toast({
-                    heading: 'Success',
-                    text: "Data Berhasil dihapus.",
-                    showHideTransition: 'slide',
-                    icon: 'success',
-                    hideAfter: false,
-                    position: 'bottom-right',
-                    bgColor: '#7EC857'
-                });
-        </script>
+    
     <?php else:?>
 
     <?php endif;?>

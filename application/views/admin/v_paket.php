@@ -26,6 +26,7 @@
             <table id="datatable" class="table table-striped table-bordered p-0">
               <thead>
                   <tr>
+                    <th>Gambar</th>
                     <th>Nama paket</th>
                     <th>Harga paket</th>
                     <th>Kategori</th>
@@ -39,15 +40,17 @@
                     $tanggal = $row['paket_tanggal'];
                     $harga = $row['paket_harga'];
                     $deskripsi = $row['paket_keterangan'];
+                    $gambar = $row['paket_gambar'];
                     $kategori_paket = $row['kp_nama'];
                   ?>
                   <tr>
+                      <td style="width: 10%"><img src="<?php echo base_url()?>assets/images/<?php echo $gambar;?>"  style="width: 100px"></td>
                       <td><?php echo $nama?></td>
                       <td><?php echo $harga?></td>
                       <td><?php echo $kategori_paket?></td>
                       <td>
-                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#EditData"><span class="ti-pencil"></span></a>
-                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#HapusData"><span class="ti-trash"></span></a>
+                        <a href="<?php echo base_url()?>Admin/Paket/vUpdate_Paket/<?php echo $id?>" style="margin-right: 20px"><span class="ti-pencil"></span></a>
+                        <a href="#" style="margin-right: 20px" data-toggle="modal" data-target="#HapusData<?php echo $id?>"><span class="ti-trash"></span></a>
                       </td>
                   </tr>
                 <?php endforeach;?>
@@ -96,6 +99,10 @@
                                       <label class="control-label">Deskripsi</label>
                                       <textarea id="summernote" name="deskripsi_paket" required><p>Deskripsi Paket</p></textarea>
                                   </div>
+                                  <div class="col-md-12">
+                                    <label for="exampleFormControlFile1">Upload Gambar</label>
+                                    <input type="file" class="form-control-file" name="filefoto"  required>
+                                  </div>
                               </div>
                       </div>
                       <div class="modal-footer">
@@ -107,47 +114,13 @@
             </div>
         </div>
 
-        <?php foreach($paket->result_array() AS $row) :
-          $id = $row['paket_id'];
-          $nama = $row['paket_nama'];
-          $tanggal = $row['paket_tanggal'];
-          $harga = $row['paket_harga'];
-          $deskripsi = $row['paket_keterangan'];
-          $kategori_paket = $row['kp_nama'];
-        ?>
-        <div class="modal" tabindex="-1" role="dialog" id="EditData<?php echo $id?>">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                        <form action="<?php echo base_url()?>Admin/Paket/update_kategori" method="post" enctype="multipart/form-data">
-                          <div class="modal-body p-20">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <label class="control-label">Nama kategori*</label>
-                                      <input type="hidden" name="id" value="<?php echo $id?>">
-                                      <input class="form-control form-white" placeholder="Masukkan nama kategori" type="text" name="kategori" value="<?php echo $nama?>" required/>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success ripple save-category" id="simpan">Save</button>
-                          </div>
-                        </form>
-                </div>
-            </div>
-        </div>
-        <?php endforeach;?>
-
         <!--Modal Delete Data -->
         <?php foreach($paket->result_array() AS $row) :
           $id = $row['paket_id'];
           $nama = $row['paket_nama'];
           $tanggal = $row['paket_tanggal'];
           $harga = $row['paket_harga'];
+          $gambar = $row['paket_gambar'];
           $deskripsi = $row['paket_keterangan'];
           $kategori_paket = $row['kp_nama'];
         ?>
@@ -158,12 +131,13 @@
                         <h5 class="modal-title">Hapus Data</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
-                    <form action="<?php echo base_url()?>Admin/Paket/hapus_kategori" method="post" enctype="multipart/form-data">
+                    <form action="<?php echo base_url()?>Admin/Paket/hapus_paket" method="post" enctype="multipart/form-data">
                         <div class="modal-body p-20">
                             <div class="row">
                                 <div class="col-md-12">
                                     <input type="hidden" name="id" value="<?php echo $id?>">
-                                    <p>Apakah kamu yakin ingin menghapus kategori paket <b><i><?php echo $nama?></i></b></p>
+                                    <input type="hidden" name="gambar" value="<?php echo $gambar?>">
+                                    <p>Apakah kamu yakin ingin menghapus paket <b><i><?php echo $nama?></i></b></p>
                                 </div>
                             </div>
                         </div>
@@ -292,6 +266,19 @@
                       loaderBg: '#ffffff',
                       position: 'top-right',
                       bgColor: 'red'
+                  });
+          </script>
+      <?php elseif($this->session->flashdata('msg')=='warning'):?>
+          <script type="text/javascript">
+                  $.toast({
+                      heading: 'Berhasil',
+                      text: "Data tidak berhasil disimpan data berhasil",
+                      showHideTransition: 'slide',
+                      icon: 'warning',
+                      loader: true,        // Change it to false to disable loader
+                      loaderBg: '#ffffff',
+                      position: 'top-right',
+                      bgColor: 'orange'
                   });
           </script>
     <?php else:?>

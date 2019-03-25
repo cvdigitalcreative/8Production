@@ -72,12 +72,7 @@
 							<ul>
 								<li> <a href="<?php echo base_url()?>">Home</a></li>
 								<li ><a href="<?php echo base_url()?>Home/Video">Video</a></li>
-								<li class="has-dropdown">
-									<a href="shop.html">Paket</a>
-									<ul class="dropdown">
-										
-									</ul>
-								</li>
+								<!-- <li ><a href="<?php echo base_url()?>Home/Paket">All Paket</a></li> -->
 								<!-- <li><a href="about.html">About</a></li> -->
 								<!-- <li><a href="contact.html">Contact</a></li> -->
 							</ul>

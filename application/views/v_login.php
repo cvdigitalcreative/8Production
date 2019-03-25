@@ -42,7 +42,7 @@
         <div class="login-fancy">
           <h2 class="text-white mb-20">Hello!!!</h2>
           <p class="mb-20 text-white">Login sebagai?</p>
-          <a href="<?php echo base_url()?>Login_Pegawai"><button class="btn btn-success mb-10" style="margin-left: 10px">Pegawai</button></a>
+          <a href="<?php echo base_url()?>Pegawai/Login_Pegawai"><button class="btn btn-success mb-10" style="margin-left: 10px">Pegawai</button></a>
           <a href="<?php echo base_url()?>Login"><button class="btn btn-primary mb-10" style="margin-left: 10px">Admin</button></a>
         </div> 
       </div>
