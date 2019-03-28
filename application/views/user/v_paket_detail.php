@@ -1,4 +1,10 @@
-		<?php foreach($paket->result_array() as $row) :
+		<?php 
+		function rupiah($angka){
+            $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+            return $hasil_rupiah;
+        }
+
+		foreach($paket->result_array() as $row) :
 	        $id = $row['paket_id'];
 	        $nama = $row['paket_nama'];
 	        $tanggal = $row['paket_tanggal'];
@@ -23,7 +29,7 @@
 									<div class="desc">
 										<h3><?php echo $nama?></h3>
 										<p class="price">
-											<span><?php echo $harga?></span> 
+											<span><?php echo rupiah($harga)?></span> 
 										</p>
 										<h4>Kategori : <?php echo $kategori_paket?></h4>
 										

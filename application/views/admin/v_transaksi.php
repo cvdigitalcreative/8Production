@@ -34,7 +34,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                            <?php foreach($transaksi->result_array() as $row) :
+                            <?php 
+                            function rupiah($angka){
+                              $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+                              return $hasil_rupiah;
+                            }
+
+                            foreach($transaksi->result_array() as $row) :
                               $id = $row['transaksi_id'];
                               $harga = $row['transaksi_harga'];
                               $tanggal = $row['transaksi_tanggal'];
@@ -43,7 +49,7 @@
                             ?>
                             <tr>
                               <td><?php echo $tanggal?></td>
-                              <td><?php echo $harga?></td>
+                              <td><?php echo rupiah($harga)?></td>
                               <td><?php echo $keterangan?></td>
                               <td style="text-align:left;">
                                 <a href="#" data-toggle="modal" data-target="#EditData<?php echo $id?>"><span class="ti-pencil"></span></a>
@@ -51,12 +57,14 @@
                               </td>
                             </tr>
                             <?php endforeach;?>
-                            <tr>
-                              <th>Jumlah</th>
-                              <th><?php echo $jumlah?></ths>
-                            </tr>
-
-                </tbody>                
+                            
+                </tbody>  
+                <tfoot>
+                <tr>
+                  <th>Jumlah</th>
+                  <th><?php echo rupiah($jumlah)?></ths>
+                </tr>
+              </tfoot>              
             </table>
             </div>
             </div>

@@ -153,6 +153,9 @@
           $y['title'] = 'Absensi Pegawai';
           $x['absensi'] = $this->m_pegawai->getAllAbsensi();
           $x['pegawai'] = $this->m_pegawai->getAllPegawai();
+          $get_db=$this->m_pegawai->getAllAbsensi();
+          $q=$get_db->row_array();
+          $x['a_id']=$q['absensi_id'];
           $this->load->view('v_header',$y);
           $this->load->view('admin/v_sidebar');
           $this->load->view('admin/v_absensi_pegawai',$x);
@@ -168,14 +171,47 @@
         $status = $this->input->post('status');
         $j_status = count($status);
 
-        echo $tanggal."<br>";
-
         for($i = 0 ;$i<$j_status; $i++){
-          echo $id[$i];
-          echo "<br>";
-          echo $status[$i];
-          echo "<br>";
+          $this->m_pegawai->saveAbsensi($tanggal,$status[$i],$id[$i]);  
         }
+          echo $this->session->set_flashdata('msg','success');
+          redirect('Admin/Pegawai/absensi_pegawai');
+      }
+
+      function update_absensi(){
+         $absensi_id = $this->input->post('id');
+         $status = $this->input->post('status');
+
+         $this->m_pegawai->updateAbsensi($absensi_id, $absensi_status);
+         echo $this->session->set_flashdata('msg','update');
+          redirect('Admin/Pegawai/absensi_pegawai');
+      }
+
+      function hapus_absensi(){
+        $absensi_id = $this->input->post('id');
+
+        $this->m_pegawai->hapusAbsensi($absensi_id);
+        echo $this->session->set_flashdata('msg','hapus');
+        redirect('Admin/Pegawai/absensi_pegawai');
+      }
+
+      function hapusAbsensi_tanggal(){
+        $tanggal = $this->input->post('tanggal');
+        $data = $this->m_pegawai->getAllAbsensitanggal($tanggal)->num_rows();
+        if ($data > 0 ) {
+          $this->m_pegawai->hapusAbsensibyTanggal($tanggal);
+          echo $this->session->set_flashdata('msg','hapus');
+          redirect('Admin/Pegawai/absensi_pegawai');
+        }else{
+          echo $this->session->set_flashdata('msg','delete');
+          redirect('Admin/Pegawai/absensi_pegawai');
+        }
+      }
+
+      function hapusAllabsensi(){
+        $this->m_pegawai->hapusAll();
+        echo $this->session->set_flashdata('msg','hapus');
+        redirect('Admin/Pegawai/absensi_pegawai');
       }
 	}
 ?>

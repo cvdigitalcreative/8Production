@@ -17,24 +17,55 @@
       <div class="col-xl-12 mb-30">
         <div class="card card-statistics h-100">
           <div class="card-body">
-            <div class="col-xl-12 mb-10">
-                  <a href="" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary btn-block ripple m-t-20">
+            <div class="col-xl-9 mb-10" style="display: flex;">
+              <div class="col-xl-3 mb-10">
+                <a href="" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary btn-block ripple m-t-20">
                       <i class="fa fa-plus pr-2"></i> Tambah Data
                   </a>
+              </div>
+              <div class="col-xl-4 mb-10">
+                <a href="" data-toggle="modal" data-target="#HapusAll" class="btn btn-primary btn-block ripple m-t-20">
+                      <i class="fa fa-trash pr-2"></i> Hapus semua absen
+                  </a>
+              </div>
+              <div class="col-xl-4 mb-10">
+                <a href="" data-toggle="modal" data-target="#HapusDataTanggal" class="btn btn-primary btn-block ripple m-t-20">
+                      <i class="fa fa-trash pr-2"></i> Delete by tanggal
+                  </a>
+              </div>
             </div>
             <div class="table-responsive">
             <table class="display table table-striped table-bordered p-0">
               <thead> 
                 <tr>
                   <th>Tanggal</th>
+                  <th>Nama Pegawai</th>
+                  <th>Status</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
+                <?php foreach($absensi->result_array() as $row) :
+                  $pegawai_id = $row['pegawai_id'];
+                  $pegawai_nama = $row['pegawai_nama'];
+                  $absensi_id = $row['absensi_id'];
+                  $absensi_status = $row['absensi_status'];
+                  $tanggal = $row['absensi_tanggal'];
+                ?>
                 <tr>
-                  <td>sad</td>
-                  <td>asd</td>
+                  <td><?php echo $tanggal?></td>
+                  <td><?php echo $pegawai_nama?></td>
+                  <?php if($absensi_status == 0):?>
+                    <td>Tidak Ada</td>
+                  <?php elseif($absensi_status == 1):?>
+                    <td>Ada</td>
+                  <?php endif;?>
+                  <td>
+                    <a href="#" style="margin-right: 10px" data-toggle="modal" data-target="#EditData<?php echo $absensi_id?>"><span class="ti-pencil"></span></a>
+                    <a href="#" style="margin-left: 10px" data-toggle="modal" data-target="#HapusData<?php echo $absensi_id?>"><span class="ti-trash"></span></a>
+                  </td>
                 </tr>
+                <?php endforeach;?>
               </tbody>
            </table>
           </div>
@@ -96,9 +127,122 @@
             </div>
         </div>
 
-        
+        <?php foreach($absensi->result_array() as $row) :
+          $absensi_id = $row['absensi_id'];
+          $absensi_status = $row['absensi_status'];
+        ?>
+        <div class="modal" tabindex="-1" role="dialog" id="EditData<?php echo $absensi_id?>">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="<?php echo base_url()?>Admin/Pegawai/update_absensi" method="post" enctype="multipart/form-data">
+                      <div class="modal-body p-20">
+                              <div class="row">
+                                <input type="hidden" name="id" value="<?php echo $absensi_id?>">
+                                <select class="form-control" name="status">
+                                  <?php if($absensi_status == 1):?>
+                                    <option selected value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                  <?php elseif($absensi_status == 0):?>
+                                    <option selected value="0">Tidak Ada</option>
+                                    <option value="1">Ada</option>
+                                  <?php endif;?>                      
+                                </select>
+                              </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success ripple save-category" id="simpan">Save</button>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <?php endforeach;?>
 
-        
+        <?php foreach($absensi->result_array() as $row) :
+          $id = $row['absensi_id'];
+          $absensi_status = $row['absensi_status'];
+          $pegawai_nama = $row['pegawai_nama'];
+        ?>
+        <div class="modal" tabindex="-1" role="dialog" id="HapusData<?php echo $id?>">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hapus Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="<?php echo base_url()?>Admin/Pegawai/hapus_absensi" method="post" enctype="multipart/form-data">
+                        <div class="modal-body p-20">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" name="id" value="<?php echo $id?>">
+                                    <p>Apakah kamu yakin ingin menghapus absensi atas nama <b><i><?php echo $pegawai_nama?></i></b>?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <?php endforeach;?>
+
+
+        <div class="modal" tabindex="-1" role="dialog" id="HapusDataTanggal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hapus Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="<?php echo base_url()?>Admin/Pegawai/hapusAbsensi_tanggal" method="post" enctype="multipart/form-data">
+                        <div class="modal-body p-20">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input class="form-control" type="date" name="tanggal" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="HapusAll">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hapus Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="<?php echo base_url()?>Admin/Pegawai/hapusAllabsensi" method="post" enctype="multipart/form-data">
+                        <div class="modal-body p-20">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Yakin ingin menghapus semua data absen?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
   </div>
 
 
@@ -189,16 +333,17 @@
   
 </script>
 
-<?php if($this->session->flashdata('msg')=='error'):?>
+<?php if($this->session->flashdata('msg')=='delete'):?>
         <script type="text/javascript">
                 $.toast({
-                    heading: 'Error',
-                    text: "Password dan Ulangi Password yang Anda masukan tidak sama.",
-                    showHideTransition: 'slide',
-                    icon: 'error',
-                    hideAfter: false,
-                    position: 'bottom-right',
-                    bgColor: '#FF4859'
+                    heading: 'Sukses',
+                      text: "Tanggal tidak ada diabsen",
+                      showHideTransition: 'slide',
+                      icon: 'warning',
+                      loader: true,        // Change it to false to disable loader
+                      loaderBg: '#ffffff',
+                      position: 'top-right',
+                      bgColor: 'red'
                 });
         </script>
 
@@ -206,7 +351,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Sukses',
-                    text: "Data Berhasil disimpan ke database.",
+                    text: "Sukses absen",
                     showHideTransition: 'slide',
                     icon: 'success',
                     loader: true,        // Change it to false to disable loader
@@ -220,7 +365,7 @@
           <script type="text/javascript">
                   $.toast({
                       heading: 'Sukses',
-                      text: "Hapus data berhasil",
+                      text: "Hapus data absen berhasil",
                       showHideTransition: 'slide',
                       icon: 'warning',
                       loader: true,        // Change it to false to disable loader
@@ -233,7 +378,7 @@
           <script type="text/javascript">
                   $.toast({
                       heading: 'Update',
-                      text: "Data berhasil diupdate",
+                      text: "Absen diupdate",
                       showHideTransition: 'slide',
                       icon: 'success',
                       loader: true,        // Change it to false to disable loader

@@ -19,7 +19,14 @@
 					</div>
 				</div>
 				<div class="row">
-				  	<?php foreach($wedding->result_array() as $row) :
+				  	<?php 
+
+                  	function rupiah($angka){
+                    	$hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+                    	return $hasil_rupiah;
+                  	}
+
+				  	foreach($wedding->result_array() as $row) :
 	                    $id = $row['paket_id'];
 	                    $nama = $row['paket_nama'];
 	                    $tanggal = $row['paket_tanggal'];
@@ -41,7 +48,7 @@
 							</div>
 							<div class="desc">
 								<h3><a href="<?php echo base_url()?>Home/Detail/<?php echo $id?>"><?php echo $nama?></a></h3>
-								<p class="price"><span><?php echo $harga?></span></p>
+								<p class="price"><span><?php echo rupiah($harga)?></span></p>
 							</div>
 						</div>
 					</div>
@@ -81,7 +88,7 @@
 							</div>
 							<div class="desc">
 								<h3><a href="<?php echo base_url()?>Home/Detail/<?php echo $id?>"><?php echo $nama?></a></h3>
-								<p class="price"><span><?php echo $harga?></span></p>
+								<p class="price"><span><?php echo rupiah($harga)?></span></p>
 							</div>
 						</div>
 					</div>
@@ -121,7 +128,7 @@
 							</div>
 							<div class="desc">
 								<h3><a href="<?php echo base_url()?>Home/Detail/<?php echo $id?>"><?php echo $nama?></a></h3>
-								<p class="price"><span><?php echo $harga?></span></p>
+								<p class="price"><span><?php echo rupiah($harga)?></span></p>
 							</div>
 						</div>
 					</div>

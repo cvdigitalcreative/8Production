@@ -57,7 +57,8 @@ class Paket extends CI_Controller
 
                           $gambar=$gbr['file_name'];
                           $nama_paket = $this->input->post('nama_paket');
-                          $harga_paket = $this->input->post('harga_paket');
+                          $harga = $this->input->post('harga_paket');
+                          $harga_paket=str_replace(".", "", $harga);
                           $kategori = $this->input->post('kategori');
                           $deskripsi_paket = $this->input->post('deskripsi_paket');
 
@@ -116,7 +117,8 @@ class Paket extends CI_Controller
 
                           $gambar=$gbr['file_name'];
                           $nama_paket = $this->input->post('nama_paket');
-                          $harga_paket = $this->input->post('harga_paket');
+                          $harga = $this->input->post('harga_paket');
+                          $harga_paket=str_replace(".", "", $harga);
                           $kategori = $this->input->post('kategori');
                           $images=$this->input->post('gambar');
                           $path='./assets/images/'.$images;
@@ -135,12 +137,13 @@ class Paket extends CI_Controller
                   
               }else{
                 $nama_paket = $this->input->post('nama_paket');
-                $harga_paket = $this->input->post('harga_paket');
+                $harga = $this->input->post('harga_paket');
+                $harga_paket=str_replace(".", "", $harga);
                 $kategori = $this->input->post('kategori');
                 $deskripsi_paket = $this->input->post('deskripsi_paket');
                 $id = $this->input->post('id');
 
-                $this->m_paket->updatePaket($id,$nama_paket,$harga_paket,$kategori,$deskripsi_paket);
+                $this->m_paket->updatePaketNoGambar($id,$nama_paket,$harga_paket,$kategori,$deskripsi_paket);
                 echo $this->session->set_flashdata('msg','success');
                 redirect('Admin/Paket');
               } 

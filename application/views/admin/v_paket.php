@@ -34,7 +34,13 @@
                   </tr>
               </thead>
               <tbody>
-                  <?php foreach($paket->result_array() as $row) :
+                  <?php
+                  function rupiah($angka){
+                    $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+                    return $hasil_rupiah;
+                  }
+
+                  foreach($paket->result_array() as $row) :
                     $id = $row['paket_id'];
                     $nama = $row['paket_nama'];
                     $tanggal = $row['paket_tanggal'];
@@ -46,7 +52,7 @@
                   <tr>
                       <td style="width: 10%"><img src="<?php echo base_url()?>assets/images/<?php echo $gambar;?>"  style="width: 100px"></td>
                       <td><?php echo $nama?></td>
-                      <td><?php echo $harga?></td>
+                      <td><?php echo rupiah($harga)?></td>
                       <td><?php echo $kategori_paket?></td>
                       <td>
                         <a href="<?php echo base_url()?>Admin/Paket/vUpdate_Paket/<?php echo $id?>" style="margin-right: 20px"><span class="ti-pencil"></span></a>
@@ -78,7 +84,7 @@
                                   </div>
                                   <div class="col-md-12">
                                       <label class="control-label">Harga Paket*</label>
-                                      <input class="form-control form-white" placeholder="Harga paket" type="text" name="harga_paket" value="Rp. " required/>
+                                      <input class="form-control form-white harga_paket" placeholder="Harga paket" type="text" name="harga_paket" value="Rp. " required/>
                                   </div>
                                   <div class="col-md-12">
                                       <label class="control-label">Kategori</label>
@@ -217,6 +223,8 @@
 
 <!-- validation -->
 <script src="<?php echo base_url()?>assets/admin/js/validation.js"></script>
+  
+<script src="<?php echo base_url()?>assets/js/jquery.mask.min.js"></script>x
 
 <!-- lobilist -->
 <script src="<?php echo base_url()?>assets/admin/js/lobilist.js"></script>
@@ -227,6 +235,14 @@
 </body>
 </html>
 <script src="<?php echo base_url().'assets/admin/js/jquery.toast.min.js'?>"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+                // Format mata uang.
+                $( '.harga_paket' ).mask('000.000.000.000.000', {reverse: true});
+
+  })
+</script>
 
 <?php if($this->session->flashdata('msg')=='error'):?>
         <script type="text/javascript">

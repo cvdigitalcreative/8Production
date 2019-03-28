@@ -27,7 +27,7 @@ class Login extends CI_Controller{
                 $this->session->set_userdata('email',$email);
                 $this->session->set_userdata('id',$id);
                 $this->session->set_userdata('nama',$user_nama);
-                redirect('Admin/Pemesanan');
+                redirect('Pemimpin/Laporan_Keuangan');
             }
              else if($xcadmin['user_level']=='2')
              {

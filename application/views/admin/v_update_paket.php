@@ -68,7 +68,7 @@ wrapper -->
                   <div class="form-group">
                     <label class="control-label">Harga Paket</label>
                           <div class="mb-4">
-                            <input type="text" class="form-control" name="harga_paket" value="<?php echo $harga;?>" required />
+                            <input type="text" class="form-control harga_paket" name="harga_paket" value="<?php echo $harga;?>" required />
                           </div>
                   </div>
                   <div class="form-group">
@@ -156,6 +156,8 @@ wrapper -->
 
 <!-- lobilist -->
 <script src="<?php echo base_url()?>assets/admin/js/lobilist.js"></script>
+
+<script src="<?php echo base_url()?>assets/js/jquery.mask.min.js"></script>
  
 <!-- custom -->
 <script src="<?php echo base_url()?>assets/admin/js/custom.js"></script>
@@ -163,6 +165,14 @@ wrapper -->
  
 </body>
 </html>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    // Format mata uang.
+    $( '.harga_paket' ).mask('000.000.000.000.000', {reverse: true});
+
+  })
+</script>
 
 <?php if($this->session->flashdata('msg')=='error'):?>
         <script type="text/javascript">

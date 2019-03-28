@@ -6,7 +6,9 @@
 class M_pemesanan extends CI_Model
 {
 	function savePemesanan($nama, $nohp, $email, $alamat, $tglawal, $tglakhir, $paket_id, $status){
-		$hsl = $this->db->query("INSERT INTO pemesanan(pemesanan_nama, pemesanan_nohp, pemesanan_email, pemesanan_alamat, pemesanan_tglawal, pemesanan_tglakhir, paket_id, pemesanan_status) VALUES ('$nama', '$nohp', '$email', '$alamat', '$tglawal', '$tglakhir', '$paket_id', '$status')");
+        date_default_timezone_set("Asia/Jakarta");
+        $cur_date = date("Y-m-d");
+		$hsl = $this->db->query("INSERT INTO pemesanan(pemesanan_nama, pemesanan_nohp, pemesanan_email, pemesanan_alamat,pemesanan_tanggal, pemesanan_tglawal, pemesanan_tglakhir, paket_id, pemesanan_status) VALUES ('$nama', '$nohp', '$email', '$alamat', '$cur_date','$tglawal', '$tglakhir', '$paket_id', '$status')");
       	return $hsl;
 	}
 
@@ -179,6 +181,15 @@ class M_pemesanan extends CI_Model
         return $hsl;
     }
 
+    function getLaporanKeuangan(){
+            $hsl = $this->db->query("SELECT a.pemesanan_id, a.pemesanan_nama, DATE_FORMAT(a.pemesanan_tanggal,'%d/%m/%Y') AS tanggal, a.pemesanan_status, b.paket_id,b.paket_nama,b.paket_harga FROM pemesanan a, paket b WHERE a.pemesanan_status = '1' AND a.paket_id = b.paket_id");
+            return $hsl;
+    }
+
+    function sumUangLaporan(){
+        $hsl = $this->db->query("SELECT SUM(b.paket_harga) AS jumlah FROM pemesanan a, paket b WHERE a.pemesanan_status = '1' AND a.paket_id = b.paket_id");
+        return $hsl;
+    }
 }
 
 ?>
