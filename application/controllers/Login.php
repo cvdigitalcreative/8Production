@@ -27,7 +27,7 @@ class Login extends CI_Controller{
                 $this->session->set_userdata('email',$email);
                 $this->session->set_userdata('id',$id);
                 $this->session->set_userdata('nama',$user_nama);
-                redirect('Pemimpin/Laporan_Keuangan');
+                redirect('Pemimpin/Laporan');
             }
              else if($xcadmin['user_level']=='2')
              {
@@ -39,15 +39,15 @@ class Login extends CI_Controller{
                 $this->session->set_userdata('id',$id);
                 $this->session->set_userdata('nama',$user_nama);
                 redirect('Admin/Pemesanan');
-             } //Front Office 
+             } //Front Office
         }
-        
+
         else{
             redirect('Login/gagallogin');
         }
     }
 
-    
+
         function gagallogin(){
             $url=base_url('Login');
             echo $this->session->set_flashdata('msg','<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Username Atau Password Salah</div>');

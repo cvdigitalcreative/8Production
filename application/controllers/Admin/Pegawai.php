@@ -213,5 +213,12 @@
         echo $this->session->set_flashdata('msg','hapus');
         redirect('Admin/Pegawai/absensi_pegawai');
       }
+
+      function cetak_absensi(){
+        $daritanggal = $this->input->post("daritgl");
+        $ketanggal = $this->input->post("ketgl");
+        $x['absensi'] = $this->m_pegawai->getcetakAbsensitanggal($daritanggal,$ketanggal);
+        $this->load->view('admin/cetak_absensi',$x);
+      }
 	}
 ?>

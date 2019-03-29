@@ -54,6 +54,11 @@
 			$hsl = $this->db->query("SELECT a.absensi_id, DATE_FORMAT(a.absensi_tanggal,'%d/%m/%Y') AS absensi_tanggal, a.absensi_status, b.pegawai_id, b.pegawai_nama FROM absensi a, pegawai b WHERE a.absensi_tanggal = '$tanggal' AND a.pegawai_id = b.pegawai_id");
 	      	return $hsl;	
 		}
+
+		function getcetakAbsensitanggal($daritgl,$ketgl){
+			$hsl = $this->db->query("SELECT a.absensi_id, DATE_FORMAT(a.absensi_tanggal,'%d/%m/%Y') AS absensi_tanggal, a.absensi_status, b.pegawai_id, b.pegawai_nama FROM absensi a, pegawai b WHERE (a.absensi_tanggal BETWEEN '$daritgl' AND '$ketgl') AND a.pegawai_id = b.pegawai_id ORDER BY b.pegawai_nama");
+	      	return $hsl;	
+		}
 		
 		function saveAbsensi($tanggal,$status,$pegawai_id){
 			$hsl = $this->db->query("INSERT INTO absensi(absensi_tanggal, absensi_status, pegawai_id) VALUES ('$tanggal', '$status', '$pegawai_id')");

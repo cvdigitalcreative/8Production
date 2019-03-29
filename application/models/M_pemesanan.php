@@ -182,8 +182,18 @@ class M_pemesanan extends CI_Model
     }
 
     function getLaporanKeuangan(){
-            $hsl = $this->db->query("SELECT a.pemesanan_id, a.pemesanan_nama, DATE_FORMAT(a.pemesanan_tanggal,'%d/%m/%Y') AS tanggal, a.pemesanan_status, b.paket_id,b.paket_nama,b.paket_harga FROM pemesanan a, paket b WHERE a.pemesanan_status = '1' AND a.paket_id = b.paket_id");
-            return $hsl;
+        $hsl = $this->db->query("SELECT a.pemesanan_id, a.pemesanan_nama, DATE_FORMAT(a.pemesanan_tanggal,'%d/%m/%Y') AS tanggal, a.pemesanan_status, b.paket_id,b.paket_nama,b.paket_harga FROM pemesanan a, paket b WHERE a.pemesanan_status = '1' AND a.paket_id = b.paket_id");
+        return $hsl;
+    }
+
+	function getKeuanganTanggal($tanggal,$tgltuju){
+        $hsl = $this->db->query("SELECT a.pemesanan_id, a.pemesanan_nama, DATE_FORMAT(a.pemesanan_tanggal,'%d/%m/%Y') AS tanggal, a.pemesanan_status, b.paket_id,b.paket_nama,b.paket_harga FROM pemesanan a, paket b WHERE (a.pemesanan_tanggal BETWEEN '$tanggal' AND '$tgltuju') AND a.pemesanan_status = '1' AND a.paket_id = b.paket_id");
+        return $hsl;
+    }
+
+    function sumKeuangantanggal($tanggal,$tgltuju){
+        $hsl = $this->db->query("SELECT SUM(b.paket_harga) AS jumlah FROM pemesanan a, paket b WHERE (a.pemesanan_tanggal BETWEEN '$tanggal' AND '$tgltuju') AND a.pemesanan_status = '1' AND a.paket_id = b.paket_id");
+        return $hsl;
     }
 
     function sumUangLaporan(){

@@ -2,16 +2,9 @@
 			<div class="container">
 				<div class="row row-pb-md">
 					<div class="col-md-3 colorlib-widget">
-						<h4>About Store</h4>
-						<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-						<p>
-							<ul class="colorlib-social-icons">
-								<li><a href="#"><i class="icon-twitter"></i></a></li>
-								<li><a href="#"><i class="icon-facebook"></i></a></li>
-								<li><a href="#"><i class="icon-linkedin"></i></a></li>
-								<li><a href="#"><i class="icon-dribbble"></i></a></li>
-							</ul>
-						</p>
+						<h4>Tentang 8P</h4>
+						<p>8P adalah salah satu rumah produksi yang ada di kota palembang, rumah produksi ini selain bergerak dibidang pembuatan film-film pendek, kita juga bergerak dibidang videografi, fotografi, video pernikahan.</p>
+						
 					</div>
 					<!-- <div class="col-md-2 colorlib-widget">
 						<h4>Customer Care</h4>
@@ -49,13 +42,13 @@
 						</ul>
 					</div> -->
 
-					<div class="col-md-3">
-						<h4>Contact Information</h4>
+					<div class="col-md-5">
+						<h4>Informasi Kontak</h4>
 						<ul class="colorlib-footer-links">
-							<li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
-							<li><a href="tel://1234567920">+ 1235 2355 98</a></li>
-							<li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-							<li><a href="#">yoursite.com</a></li>
+							<li>Perumahan Tiga Putri No.cA12<br> Jl.PDAM, Bukit Lama, Kelurahan ilir barat I Palembang</li>
+							<li><a href="tel://082177630579">082177630579</a> as Rezki</li>
+							<li><a href="tel://082177794015">082177794015</a> as Opida Royani</li>
+							<li><a href="mailto:8productionplg@gmail.com">8productionplg@gmail.com</a></li>
 						</ul>
 					</div>
 				</div>

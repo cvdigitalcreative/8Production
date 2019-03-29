@@ -1,12 +1,17 @@
-<?php 
+<?php
 	/**
-	 * 
+	 *
 	 */
 	class M_agenda extends CI_Model
 	{
-		
+
 		function getAllAgenda(){
-			$hsl = $this->db->query("SELECT agenda.*,DATE_FORMAT(agenda_tanggal,'%d/%m/%Y %h:%m') AS tanggal FROM agenda");
+			$hsl = $this->db->query("SELECT agenda.*,DATE_FORMAT(agenda_tanggal,'%d/%m/%Y') AS tanggal FROM agenda");
+     		return $hsl;
+		}
+
+		function getAgendaTanggal($daritgl,$ketgl){
+			$hsl = $this->db->query("SELECT agenda.*,DATE_FORMAT(agenda_tanggal,'%d/%m/%Y') AS tanggal FROM agenda WHERE agenda_tanggal BETWEEN '$daritgl' AND '$ketgl' ");
      		return $hsl;
 		}
 

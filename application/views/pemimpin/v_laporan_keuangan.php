@@ -18,8 +18,8 @@
         <div class="card card-statistics h-100">
           <div class="card-body">
               <div class="col-xl-3 mb-10">
-                  <a href="" class="btn btn-primary btn-block ripple m-t-20">
-                      <i class="fa fa-print pr-2"></i> Cetak Laporan Keungan
+                  <a href="" data-toggle="modal" data-target="#cetak" class="btn btn-primary btn-block ripple m-t-20">
+                      <i class="fa fa-print pr-2"></i> Cetak Laporan Keuangan
                   </a>
               </div>
             <div class="table-responsive">
@@ -66,6 +66,37 @@
           </div>
         </div>
       </div>
+      
+      <!-- Modal Add Data -->
+        <div class="modal" tabindex="-1" role="dialog" id="cetak">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cetak berdasarkan tanggal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="<?php echo base_url()?>Pemimpin/Laporan/cetak_keuangan" method="post" enctype="multipart/form-data" target="_blank">
+                      <div class="modal-body p-20">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label class="control-label">Dari Tanggal*</label>
+                                      <input class="form-control form-white" type="date" name="daritgl" required/>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <label class="control-label">Ke Tanggal*</label>
+                                      <input class="form-control form-white" type="date" name="ketgl" required/>
+                                  </div>
+                              </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-success ripple save-category" id="simpan">Cetak</button>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
   </div>
 
 <!--=================================

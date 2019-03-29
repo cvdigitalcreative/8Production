@@ -23,6 +23,11 @@
                       <i class="fa fa-plus pr-2"></i> Tambah Data
                   </a>
               </div>
+              <div class="col-xl-3 mb-10">
+                <a href="" data-toggle="modal" data-target="#cetak" class="btn btn-primary btn-block ripple m-t-20">
+                      <i class="fa fa-print pr-2"></i> Cetak Absensi
+                  </a>
+              </div>
               <div class="col-xl-4 mb-10">
                 <a href="" data-toggle="modal" data-target="#HapusAll" class="btn btn-primary btn-block ripple m-t-20">
                       <i class="fa fa-trash pr-2"></i> Hapus semua absen
@@ -238,6 +243,35 @@
                             <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
                             <button type="submit" class="btn btn-success ripple save-category">Ya</button>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="cetak">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cetak berdasarkan tanggal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="<?php echo base_url()?>Admin/Pegawai/cetak_absensi" method="post" enctype="multipart/form-data" target="_blank">
+                      <div class="modal-body p-20">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label class="control-label">Dari Tanggal*</label>
+                                      <input class="form-control form-white" type="date" name="daritgl" required/>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <label class="control-label">Ke Tanggal*</label>
+                                      <input class="form-control form-white" type="date" name="ketgl" required/>
+                                  </div>
+                              </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-success ripple save-category" id="simpan">Cetak</button>
+                      </div>
                     </form>
                 </div>
             </div>
