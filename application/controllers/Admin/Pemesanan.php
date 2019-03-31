@@ -60,10 +60,36 @@
 
     	function Konfirmasi(){
     		$id = $this->input->post('kode');
+    		$emailp = $this->input->post('emailp');
+    		$namapemesan = $this->input->post('nama');
 
-    		$this->m_pemesanan->ubahStatus($id);
-		    echo $this->session->set_flashdata('msg','info');
-		    redirect('Admin/Pemesanan');
+    		$fromEmail = "8productionplg@gmail.com";
+	        $isiEmail = 'ini ada email konfirmasi dari admin terhadap orderan atas nama '.$namapemesan.', Silahkan lihat invoice yang tertera di link bawah ini : <br> <a href="'.base_url().'Home/cetak_invoice/'.$id.'">Klik disini untuk INVOICE</a>';
+	        $mail = new PHPMailer();
+	        $mail->IsHTML(true);    // set email format to HTML
+	        $mail->IsSMTP();   // we are going to use SMTP
+	        $mail->SMTPAuth   = true; // enabled SMTP authentication
+	        $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
+	        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
+	        $mail->Port       = 465;                   // SMTP port to connect to GMail
+	        $mail->Username   = $fromEmail;  // alamat email kamu
+	        $mail->Password   = "8productionfilms";            // password GMail
+	        $mail->SetFrom($fromEmail, "Admin");  //Siapa yg mengirim email
+	        $mail->Subject    = "Konfirmasi";
+	        $mail->Body       = $isiEmail;
+	        $toEmail = $emailp; // siapa yg menerima email ini
+	        $mail->AddAddress($toEmail);
+       
+	        if(!$mail->Send()) {
+	            echo "Eror: ".$mail->ErrorInfo;
+	        } else {
+	            $this->m_pemesanan->ubahStatus($id);
+			    echo $this->session->set_flashdata('msg','info');
+			    redirect('Admin/Pemesanan');
+	        }
+    		
+
+    		
     	}
 
     	function pilih_pegawai(){
@@ -85,7 +111,7 @@
     		if($videografer == 0 || !empty($s_videografer)){
 
     		}else{
-    			$fromEmail = "muhammadpuji63@gmail.com";
+    			$fromEmail = "8productionplg@gmail.com";
 		        $isiEmail = "Hello Saya admin anda sudah mendapatkan pekerjaan segera buka akun anda dan konfirmasi pekerjaan";
 		        $mail = new PHPMailer();
 		        $mail->IsHTML(true);    // set email format to HTML
@@ -95,7 +121,7 @@
 		        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
 		        $mail->Port       = 465;                   // SMTP port to connect to GMail
 		        $mail->Username   = $fromEmail;  // alamat email kamu
-		        $mail->Password   = "Puji1010101010";            // password GMail
+		        $mail->Password   = "8productionfilms";            // password GMail
 		        $mail->SetFrom($fromEmail, "Admin");  //Siapa yg mengirim email
 		        $mail->Subject    = "Mendapatakan pekerjaan videografer";
 		        $mail->Body       = $isiEmail;
@@ -113,7 +139,7 @@
     		if($fotografer == 0 || !empty($s_fotografer)){
 
     		}else{
-    			$fromEmail = "muhammadpuji63@gmail.com";
+    			$fromEmail = "8productionplg@gmail.com";
 		        $isiEmail = "Hello Saya admin anda sudah mendapatkan pekerjaan segera buka akun anda dan konfirmasi pekerjaan";
 		        $mail = new PHPMailer();
 		        $mail->IsHTML(true);    // set email format to HTML
@@ -123,7 +149,7 @@
 		        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
 		        $mail->Port       = 465;                   // SMTP port to connect to GMail
 		        $mail->Username   = $fromEmail;  // alamat email kamu
-		        $mail->Password   = "Puji1010101010";            // password GMail
+		        $mail->Password   = "8productionfilms";            // password GMail
 		        $mail->SetFrom($fromEmail, "Admin");  //Siapa yg mengirim email
 		        $mail->Subject    = "Mendapatakan pekerjaan fotografer";
 		        $mail->Body       = $isiEmail;
@@ -140,7 +166,7 @@
     		if($pilot_drone == 0 || !empty($s_pilot_drone)){
 
     		}else{
-    			$fromEmail = "muhammadpuji63@gmail.com";
+    			$fromEmail = "8productionplg@gmail.com";
 		        $isiEmail = "Hello Saya admin anda sudah mendapatkan pekerjaan segera buka akun anda dan konfirmasi pekerjaan";
 		        $mail = new PHPMailer();
 		        $mail->IsHTML(true);    // set email format to HTML
@@ -150,7 +176,7 @@
 		        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
 		        $mail->Port       = 465;                   // SMTP port to connect to GMail
 		        $mail->Username   = $fromEmail;  // alamat email kamu
-		        $mail->Password   = "Puji1010101010";            // password GMail
+		        $mail->Password   = "8productionfilms";            // password GMail
 		        $mail->SetFrom($fromEmail, "Admin");  //Siapa yg mengirim email
 		        $mail->Subject    = "Mendapatakan pekerjaan pilot drone";
 		        $mail->Body       = $isiEmail;
@@ -167,7 +193,7 @@
     		if($backup_data == 0 || !empty($s_backup_data)){
 
     		}else{
-    			$fromEmail = "muhammadpuji63@gmail.com";
+    			$fromEmail = "8productionplg@gmail.com";
 		        $isiEmail = "Hello Saya admin anda sudah mendapatkan pekerjaan segera buka akun anda dan konfirmasi pekerjaan";
 		        $mail = new PHPMailer();
 		        $mail->IsHTML(true);    // set email format to HTML
@@ -177,7 +203,7 @@
 		        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
 		        $mail->Port       = 465;                   // SMTP port to connect to GMail
 		        $mail->Username   = $fromEmail;  // alamat email kamu
-		        $mail->Password   = "Puji1010101010";            // password GMail
+		        $mail->Password   = "8productionfilms";            // password GMail
 		        $mail->SetFrom($fromEmail, "Admin");  //Siapa yg mengirim email
 		        $mail->Subject    = "Mendapatakan pekerjaan backup data";
 		        $mail->Body       = $isiEmail;
@@ -194,7 +220,7 @@
     		if($koordinator_tim == 0 || !empty($s_koordinator_tim)){
 
     		}else{
-    			$fromEmail = "muhammadpuji63@gmail.com";
+    			$fromEmail = "8productionplg@gmail.com";
 		        $isiEmail = "Hello Saya admin anda sudah mendapatkan pekerjaan segera buka akun anda dan konfirmasi pekerjaan";
 		        $mail = new PHPMailer();
 		        $mail->IsHTML(true);    // set email format to HTML
@@ -204,7 +230,7 @@
 		        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
 		        $mail->Port       = 465;                   // SMTP port to connect to GMail
 		        $mail->Username   = $fromEmail;  // alamat email kamu
-		        $mail->Password   = "Puji1010101010";            // password GMail
+		        $mail->Password   = "8productionfilms";            // password GMail
 		        $mail->SetFrom($fromEmail, "Admin");  //Siapa yg mengirim email
 		        $mail->Subject    = "Mendapatakan pekerjaan koordinator tim";
 		        $mail->Body       = $isiEmail;
@@ -221,7 +247,7 @@
     		if($editing == 0 || !empty($s_editing)){
 
     		}else{
-    			$fromEmail = "muhammadpuji63@gmail.com";
+    			$fromEmail = "8productionplg@gmail.com";
 		        $isiEmail = "Hello Saya admin anda sudah mendapatkan pekerjaan segera buka akun anda dan konfirmasi pekerjaan";
 		        $mail = new PHPMailer();
 		        $mail->IsHTML(true);    // set email format to HTML
@@ -231,7 +257,7 @@
 		        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
 		        $mail->Port       = 465;                   // SMTP port to connect to GMail
 		        $mail->Username   = $fromEmail;  // alamat email kamu
-		        $mail->Password   = "Puji1010101010";            // password GMail
+		        $mail->Password   = "8productionfilms";            // password GMail
 		        $mail->SetFrom($fromEmail, "Admin");  //Siapa yg mengirim email
 		        $mail->Subject    = "Mendapatakan pekerjaan editing";
 		        $mail->Body       = $isiEmail;

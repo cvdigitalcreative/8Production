@@ -314,6 +314,7 @@
           $no++;
           $pemesanan_id = $row['pemesanan_id'];
           $pemesanan_nama = $row['pemesanan_nama'];
+          $email = $row['pemesanan_email'];
           $paket_nama = $row['paket_nama'];
         ?>
         <!--Modal Delete Data -->
@@ -329,6 +330,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <input type="hidden" name="kode" value="<?php echo $pemesanan_id?>">
+                                    <input type="hidden" name="emailp" value="<?php echo $email?>">
+                                    <input type="hidden" name="nama" value="<?php echo $pemesanan_nama?>">
                                     <p>Apakah kamu yakin ingin konfirmasi pemesanan <b><i><?php echo $paket_nama?></i></b> atas nama <b><i><?php echo $pemesanan_nama?></i></b>?</p>
                                 </div>
                             </div>                  

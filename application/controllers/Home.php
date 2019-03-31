@@ -57,7 +57,7 @@
 			$paket_id = $this->input->post('paket_id');
 			$status = 0;
 
-	        $fromEmail = "muhammadpuji63@gmail.com";
+	        $fromEmail = "8productionplg@gmail.com";
 	        $isiEmail = "Hello Saya ".$nama." ingin melakukan pemesanan, Segera hubungi saya ".$nohp. " dan alamat email saya " .$emailpemesanan;
 	        $mail = new PHPMailer();
 	        $mail->IsHTML(true);    // set email format to HTML
@@ -67,11 +67,11 @@
 	        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
 	        $mail->Port       = 465;                   // SMTP port to connect to GMail
 	        $mail->Username   = $fromEmail;  // alamat email kamu
-	        $mail->Password   = "Puji1010101010";            // password GMail
+	        $mail->Password   = "8productionfilms";            // password GMail
 	        $mail->SetFrom($emailpemesanan, $nama);  //Siapa yg mengirim email
 	        $mail->Subject    = "pemesanan";
 	        $mail->Body       = $isiEmail;
-	        $toEmail = "muhammadpuji63@gmail.com"; // siapa yg menerima email ini
+	        $toEmail = "8productionplg@gmail.com"; // siapa yg menerima email ini
 	        $mail->AddAddress($toEmail);
        
 	        if(!$mail->Send()) {
@@ -80,8 +80,11 @@
 	            $this->m_pemesanan->savePemesanan($nama, $nohp, $emailpemesanan, $alamat, $tglawal, $tglakhir, $paket_id, $status);
 				redirect('Home/order_complete');
 	        }
+		}
 
-			
+		public function cetak_invoice($pemesanan_id){
+			$x['invoice'] = $this->m_pemesanan->getPemesananById($pemesanan_id);
+			$this->load->view('user/cetak_invoice',$x);
 		}
 	}
 	

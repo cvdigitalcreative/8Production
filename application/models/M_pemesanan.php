@@ -33,7 +33,7 @@ class M_pemesanan extends CI_Model
 	}
 
 	function getPemesananById($pemesanan_id){
-		$hsl = $this->db->query("SELECT a.pemesanan_id, a.pemesanan_nama,a.pemesanan_email,a.pemesanan_alamat,a.pemesanan_nohp,DATE_FORMAT(a.pemesanan_tglawal,'%d/%m/%Y') AS tglawal,DATE_FORMAT(a.pemesanan_tglakhir,'%d/%m/%Y') AS tglakhir,a.pemesanan_status,a.s_videografer,a.s_fotografer,a.s_pilot_drone,a.s_backup_data,a.s_koordinator_tim,a.s_editing,b.paket_id,b.paket_nama FROM pemesanan a, paket b WHERE pemesanan_id = '$pemesanan_id' AND a.paket_id = b.paket_id");
+		$hsl = $this->db->query("SELECT a.pemesanan_id, a.pemesanan_nama,a.pemesanan_email,a.pemesanan_alamat,a.pemesanan_nohp,DATE_FORMAT(a.pemesanan_tanggal,'%d/%m/%Y') AS tanggal, DATE_FORMAT(a.pemesanan_tglawal,'%d/%m/%Y') AS tglawal,DATE_FORMAT(a.pemesanan_tglakhir,'%d/%m/%Y') AS tglakhir,a.pemesanan_status,a.s_videografer,a.s_fotografer,a.s_pilot_drone,a.s_backup_data,a.s_koordinator_tim,a.s_editing,b.paket_id,b.paket_nama,b.paket_harga FROM pemesanan a, paket b WHERE pemesanan_id = '$pemesanan_id' AND a.paket_id = b.paket_id");
       	return $hsl;
 	}
 
