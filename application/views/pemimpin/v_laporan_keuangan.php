@@ -2,12 +2,12 @@
     <div class="page-title">
         <div class="row">
           <div class="col-sm-6">
-              <h4 class="mb-0"> Laporan Keuangan</h4>
+              <h4 class="mb-0"> Laporan Project</h4>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
               <li class="breadcrumb-item"><a href="<?php echo base_url()?>Pemimpin/Laporan_Keuangan" class="default-color">Home</a></li>
-              <li class="breadcrumb-item active">Data Laporan Keuangan</li>
+              <li class="breadcrumb-item active">Data Laporan Project</li>
             </ol>
           </div>
         </div>
@@ -19,7 +19,7 @@
           <div class="card-body">
               <div class="col-xl-3 mb-10">
                   <a href="" data-toggle="modal" data-target="#cetak" class="btn btn-primary btn-block ripple m-t-20">
-                      <i class="fa fa-print pr-2"></i> Cetak Laporan Keuangan
+                      <i class="fa fa-print pr-2"></i> Cetak Laporan Project
                   </a>
               </div>
             <div class="table-responsive">
